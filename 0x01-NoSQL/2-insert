@@ -1,0 +1,2 @@
+// insert a property
+db.school.insert({name: "Holberton school"})
