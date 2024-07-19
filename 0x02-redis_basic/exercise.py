@@ -28,6 +28,10 @@ def call_history(method: Callable) -> Callable:
         return result
     return wrapper
 
+def decode_utf8(data: bytes) -> str:
+    """Helper function to decode UTF-8 bytes to string."""
+    return data.decode('utf-8')
+
 def replay(method: Callable) -> None:
     """ Display the history of calls of a particular function. """
     input_key = f"{method.__qualname__}:inputs"
@@ -39,7 +43,7 @@ def replay(method: Callable) -> None:
 
     print(f"{method.__qualname__} was called {len(inputs)} times:")
     for inp, out in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{inp.decode('utf-8')}) -> {out.decode('utf-8')}")
+        print(f"{method.__qualname__}(*{decode_utf8(inp)}) -> {decode_utf8(out)}")
 
 class Cache:
     def __init__(self):
